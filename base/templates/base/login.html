@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        
+   <div class="container mt-5 pt-5">
+        <form action="" method="post" class="add-work-form shadow w-25 mx-auto p-4 rounded bg-dark text-light" style="margin-top: 10%;">
+            {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger vanish">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+            {% endif %}
+            <script>
+                const p = document.querySelector('.vanish');
+                setTimeout(() => {
+                    p.parentNode.removeChild(p);
+                }, 3000);
+            </script>
+            {% csrf_token %}
+            <label>Username</label>
+            <input type="text" name="username" class="form-control bg-transparent text-light">
+            <label class="mt-2">Password</label>
+            <input type="password" name="password" class="form-control bg-transparent text-light">
+            <input type="submit" value="Login" class="btn btn-success mt-2">
+        </form>
+   </div>
+{% endblock content %}

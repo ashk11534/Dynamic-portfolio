@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 pt-5 p-5">
+    <div class="bg-dark p-4 rounded text-light">
+            <form action="" method="post" class="w-50 shadow rounded p-4 mx-auto add-experties-form">
+                {% csrf_token %}
+                {% for field in experties_form %}
+                    {{field.label_tag}}
+                    {{field}}
+                    {{field.errors}}
+                    <br>
+                {% endfor %}
+                <p>Hold down “Control”, or “Command” on a Mac, to select more than one.</p>
+                <p>Need more tags? <a href="{% url 'add-a-new-tag' %}">Add a new tag to your system</a></p>
+                <input type="submit" value="Add" class="btn btn-success">
+            </form>
+    </div>
+</div>
+{% endblock content %}

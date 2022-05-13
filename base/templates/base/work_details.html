@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <div class="row bg-dark p-4 rounded text-light">
+            <div class="col">
+                <div class="d-flex align-items-center flex-column">
+                    <img src="{{work.image.url}}" alt="work-image" class="rounded" style="width: 18rem;">
+                    <div class="mt-3">
+                        Name: {{work.title}}
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <h4>Description:</h4>
+                    {{work.description|linebreaksbr}}
+                </div>
+                {% if work.github_link or live_site_link %}
+                <div class="d-flex justify-content-center mt-3">
+                    {% if work.github_link %}
+                    <a href="" class="btn btn-success">Github <i class="fa-solid fa-arrow-up-right-from-square"></i></a>{% endif %}
+                    <div>&nbsp;&nbsp;</div>
+                    {% if work.live_site_link %}
+                    <a href="" class="btn btn-danger">Live Demo <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="{% url 'home' %}" class="btn btn-success">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

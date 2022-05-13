@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 p-5">
+        <div class="bg-dark p-4 rounded text-light add-work-form-container">
+                <form action="" method="post" class="w-50 shadow rounded p-4 mx-auto add-work-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in cv_form %}
+                        {{field.label_tag}}
+                        {{field}}
+                        {{field.errors}}
+                        <br>
+                    {% endfor %}
+                    <input type="submit" value="Upload" class="btn btn-success mt-3">
+                </form>
+        </div>
+    </div>
+{% endblock content %}

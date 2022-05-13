@@ -1,0 +1,47 @@
+{% load number_of_messages %}
+<nav class="navbar navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}"><span style="font-weight: bold; font-size: 30px;">JP</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">JP</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body bg-dark">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about-me">About me</a>
+            </li>
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'all-messages' %}">Messages <span class="badge bg-danger">{{request.user.id|total_messages}}</span></a>
+              </li>
+            {% endif %}
+            <div class="bg-light p-4 rounded mt-2">
+              <p>If you're the admin, You can {% if request.user.is_authenticated %} logout {% else %} login {% endif %}:</p>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item w-25 mt-2">
+                  <a class="nav-link btn btn-danger" href="{% url 'user-logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item w-25">
+                  <a class="nav-link btn btn-success" href="{% url 'user-login' %}">Login</a>
+                </li>
+              {% endif %}
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>

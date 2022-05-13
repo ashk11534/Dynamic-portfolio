@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 p-5">
+        <div class="row bg-dark p-4 rounded text-light profile-row">
+            <div class="col-6 col-width">
+                <form action="" method="post" class="shadow rounded p-4 mx-auto profile-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in update_profile_form %}
+                        {{field.label_tag}}
+                        {{field}}
+                        {{field.errors}}
+                        <br><br>
+                    {% endfor %}
+                    <input type="submit" value="Update" class="btn btn-success">
+                </form>
+            </div>
+            <div class="col-6 col-width"> 
+                <div class="shadow rounded p-4 mx-auto form-width">
+                    <p>Change login credentials</p>
+                    <div class="d-flex justify-content-evenly column-wise">
+                        <a href="{% url 'change-username-email' %}" class="btn btn-success">Change username and email</a>
+                        <div>&nbsp;</div>
+                        <a href="{% url 'change-password' %}" class="btn btn-success">Change password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

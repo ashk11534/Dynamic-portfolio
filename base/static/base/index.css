@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Roboto Mono', monospace;
+}
+
+i{
+   font-size: 25px; 
+   padding: 4px;
+}
+
+.hidden {
+    opacity:0;
+}
+.console{
+    position: relative;
+}
+.console-container {
+    font-family: 'Roboto Mono', monospace;
+    font-size:4em;
+    text-align:center;
+    height:100%;
+    width:100%;
+    display:block;
+    color:white;
+    position: absolute;
+}
+.console-underscore {
+    display:inline-block;
+    position: absolute;
+}
+.errorlist{
+    list-style: none;
+    color: #fff;
+}
+.errorlist li{
+    background-color: #eb3b5a;
+    padding: 4px;
+    margin-top: 10px;
+    width: 50%;
+    border-radius: 4px;
+}
+.scroll-me{
+    overflow-y: scroll;
+    height: 430px;
+}
+.scroll-me-experties{
+    overflow-y: scroll;
+    height: 200px;
+}
+.hide{
+    display: none;
+}
+@media only screen and (max-width: 1280px){
+    .col-width{
+        width: 100% !important;
+    }
+}
+@media only screen and (max-width: 912px){
+    .add-work-form{
+        width: 100% !important;
+    }
+}
+@media only screen and (max-width: 540px){
+    .column-wise{
+        flex-direction: column !important;
+    }
+    .add-experties-form{
+        width: 100% !important;
+    }
+    .add-work-form{
+        width: 100% !important;
+    }
+    .add-work-form-container{
+        width: 130% !important;
+    }
+}
+@media only screen and (max-width: 412px){
+    .profile-row{
+        width: 160% !important;
+    }
+}
+
+@media only screen and (max-width: 280px){
+    .container, .footer-width{
+        width: 120% !important;
+    }
+    .card{
+        margin-left: -24px;
+    }
+    .hide{
+        display: block !important;
+    }
+    .hidden-text-button{
+        display: none !important;
+    }
+    .add-work-form-container{
+        width: 150% !important;
+    }
+}

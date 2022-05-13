@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 p-5">
+        <div class="bg-dark p-4 rounded text-light">
+                <form action="" method="post" class="add-work-form w-50 shadow rounded p-4 mx-auto" enctype="multipart/form-data">
+                    <p>Are you sure? You want to delete "{{work.title}}."</p>
+                    {% csrf_token %}
+                    <input type="submit" value="Cancel" name="cancel" class="btn btn-warning">
+                    <input type="submit" value="Delete" name="delete" class="btn btn-danger">
+                </form>
+        </div>
+    </div>
+{% endblock content %}

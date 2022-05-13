@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5 pt-4">
+        {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success vanish">
+                        {{message}}
+                    </div>
+                {% endfor %}
+        {% endif %}
+        <script>
+            const p = document.querySelector('.vanish');
+            setTimeout(() => {
+                p.parentNode.removeChild(p);
+            }, 3000);
+        </script>
+        <div class="row text-light mt-3">
+            <div class="col p-5 rounded" style="background-color: #ff4d4d;">
+                <div class="d-flex align-items-center flex-column">
+                    <img src="{{profile.image.url}}" style="width: 200px; height: 200px; border-radius: 50%;"alt="">
+                    <h1 class="mt-3">{{profile.name}}</h1>
+                    <h5>{{profile.designation}}</h5>
+                    <div class="d-flex mt-2">
+                        {% if profile.social_facebook_link %}
+                            <a href="{{profile.social_facebook_link}}" target="_blank" class=" text-light"><i class="fa-brands fa-facebook-square"></i></a>
+                        {% endif %}
+                        {% if profile.social_linkedin_link %}
+                           <a href="{{profile.social_linkedin_link}}" target="_blank" class=" text-light"><i class="fa-brands fa-linkedin"></i></a> 
+                        {% endif %}
+                        {% if profile.social_instagram_link %}
+                            <a href="{{profile.social_instagram_link}}" target="_blank" class=" text-light"><i class="fa-brands fa-instagram"></i></a>
+                        {% endif %}
+                        {% if profile.social_twitter_link %}
+                            <a href="{{profile.social_twitter_link}}" target="_blank" class=" text-light"><i class="fa-brands fa-twitter-square"></i></a>
+                        {% endif %}
+                    </div>
+                   {% if request.user.is_authenticated %}
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="{% url 'update-profile' profile.id %}" class="btn btn-success">Edit Profile</a>
+                    </div>
+                   {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto text-light d-flex align-items-center justify-content-center" style="background-color: #20bf6b; width: 50px; height: 50px; border-radius: 50%;"><i class="fa-solid fa-angle-down"></i></div>
+        <div class="row">
+            <div class="col text-light p-5 rounded bg-dark">
+                <div class="d-flex {% if request.user.is_authenticated %} justify-content-between {% else %} justify-content-center {% endif %}">
+                    <div></div>
+                    <h3 class="text-center mb-5">My Experties</h3>
+                    {% if request.user.is_authenticated %}
+                        <a  class="btn btn-success h-25 hidden-text-button" href="{% url 'add-experties' %}">Add New</a>
+                        <a  class="btn btn-success h-25 hide" href="{% url 'add-experties' %}">+</a>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center scroll-me-experties">
+                    {% if experties %}
+                    {% for expertie in experties %}
+                        <div class="col" style="flex: 0 0 0%;">
+                            <div class="card border-0 shadow mb-4" style="width: 18rem; background-color: #ff4d4d;">
+                                <div class="card-body">
+                                <h5 class="card-title">{{expertie.title}}</h5>
+                                <div class="d-flex flex-wrap mt-4">
+                                    {% for tag in expertie.tags.all %}
+                                        <button disabled="disabled" class="btn btn-light" style="margin: 3px;">{{tag.name}}</button>
+                                    {% endfor %}
+                                </div>
+                                {% if request.user.is_authenticated %}
+                                <div class="d-flex bg-light p-2 rounded justify-content-evenly mt-3">
+                                    <a href="{% url 'update-expertie' expertie.id %}" class="text-warning"><i class="fa-solid fa-pen"></i></a>
+                                    <a href="{% url 'delete-expertie' expertie.id %}" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                </div>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% else %}
+                        <h4 class="text-light text-center">Not available</h4>
+                    {% endif %}
+                </div>
+                <div class="d-flex{% if request.user.is_authenticated %} justify-content-between {% else %} justify-content-center {% endif %}">
+                    <div></div>
+                    <h3 class="text-center mb-5 mt-5">My Works</h3>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'add-work' %}" class="btn btn-success h-25 mt-5 hidden-text-button">Add New</a>
+                        <a href="{% url 'add-work' %}" class="btn btn-success h-25 mt-5 hide">+</a>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center scroll-me ">
+                    {% if works %}
+                        {% for work in works %}
+                        <div class="col" style="flex: 0 0 0%;">
+                            <div class="card border-0 shadow mb-4 card-width" style="width: 18rem; background-color: #ff4d4d;">
+                                <img src="{{work.image.url}}" class="card-img-top" alt="work-image">
+                                <div class="card-body">
+                                <h5 class="card-title">{{work.title}}</h5>
+                                <p class="card-text">{{work.description|truncatechars:100}}</p>
+                                
+                                <div class="d-flex bg-light p-2 rounded justify-content-evenly">
+                                    <a href="{% url 'work-details' work.id %}" class="text-success"><i class="fa-solid fa-eye"></i></a>
+                                    {% if request.user.is_authenticated %}
+                                    <a href="{% url 'update-work' work.id %}" class="text-warning"><i class="fa-solid fa-pen"></i></a>
+                                    <a href="{% url 'delete-work' work.id %}" class="text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                                    {% endif %}
+                                </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <h4 class="text-light text-center">No works available</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% if profile.description %}
+            <div id="about-me" class="mx-auto text-light d-flex align-items-center justify-content-center" style="background-color: #20bf6b; width: 50px; height: 50px; border-radius: 50%;"><i class="fa-solid fa-angle-down"></i></div>
+            <div class="row text-light p-5 rounded bg-dark">
+                <div class="col text-center">
+                    <h3 class="mb-4 mt-3">About Me</h3>
+                    {{profile.description|linebreaksbr}}
+                </div>
+            </div>
+        {% endif %}
+        {% if not request.user.is_authenticated %}
+        <div class="mx-auto text-light d-flex align-items-center justify-content-center" style="background-color: #20bf6b; width: 50px; height: 50px; border-radius: 50%;"><i class="fa-solid fa-angle-down"></i></div>
+        <div id="contact" class="row bg-dark text-light p-5 rounded" style="background-color: #26de81;">
+            <div class="col">
+                <h3 class="text-center mb-4 mt-3">Contact</h3>
+                <form action="{% url 'visitor-message' %}" method="POST" class="add-work-form w-50 mx-auto shadow p-4 rounded">
+                    {% csrf_token %}
+                    {% for field in user_message_form %}
+                        {{field}}
+                        {{field.errors}}
+                        <br>
+                    {% endfor %}
+                    <input type="submit" value="Send" class="btn btn-success mt-3">
+                </form>
+            </div>
+        </div>
+       {% endif %}
+    </div>
+    <div class="row mt-3 footer-width">
+        <div class="col bg-dark text-light p-5 d-flex flex-column align-items-center">
+            <div class="d-flex justify-content-evenly">
+                <a href="{% url 'download' %}" class="btn btn-outline-success mb-3">Download CV</a>
+                {% if request.user.is_authenticated %}
+                <div>&nbsp;</div>
+                <a href="{% url 'upload-new-cv' %}" class="btn btn-outline-success mb-3">Upload a new CV</a>
+                {% endif %}
+            </div>
+            <p>Copyright ©2022 All rights reserved | This application is made with <i class="fa-solid fa-heart text-danger"></i> by Joty Prokash.</p>
+        </div>
+    </div>
+{% endblock content %}
+

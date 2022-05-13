@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 p-5">
+        <div class="row bg-dark p-4 rounded text-light flex-column">
+            {% if all_messages %}
+            <div class="d-flex justify-content-between pb-4">
+                <div></div>
+                <h2>All New Messages</h2>
+                <a href="{% url 'delete-all-user-message' %}" class="btn btn-danger h-25">Delete All</a>
+            </div>
+            <hr>
+            <br>
+            {% for message in all_messages %}
+                <div class="col">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h4>{{message.sender_name}}</h4>
+                                <p>{{message.sender_email}}</p>
+                            </div>
+                            <a href="{% url 'delete-user-message' message.id %}" class="btn btn-danger h-25">Delete</a>
+                        </div>
+                        
+                        <p class="border rounded p-4">{{message.sender_message}}</p>
+                        
+                    </div>
+                    <hr>
+                </div>
+            {% endfor %}
+            {% else %}
+            <h2 class="text-center">No new messages</h2>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

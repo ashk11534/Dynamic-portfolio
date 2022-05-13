@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5 pt-5 p-5">
+        <div class="row bg-dark p-4 rounded text-light">
+            <div class="col d-flex flex-column align-items-center">
+                <h2 class="text-center">No CV available to download at this moment.</h2>
+                <a href="{% url 'home' %}" class="btn btn-warning mt-3">Back to home</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
